@@ -32,6 +32,8 @@ function App() {
     setexpenses([]);
   }
 
+
+
   return (
     <div>
       <h1>Expense Tracker</h1>
@@ -56,6 +58,15 @@ function App() {
       <button onClick  ={clearExpense}>
         Clear All Expenses
       </button>
+
+      <h3>Expenses</h3>
+      <ul>
+        {expenses.map((expense,index)=>(
+          <li key={index}>
+            {expense.name} - {expense.amount}Rs
+          </li>
+        ))}
+      </ul>
       <h3>Total: {total}Rs </h3>
     </div>
   );
