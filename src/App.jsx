@@ -28,6 +28,10 @@ function App() {
     0//0 is initial value
   )
 
+  function clearExpense(){
+    setexpenses([]);
+  }
+
   return (
     <div>
       <h1>Expense Tracker</h1>
@@ -47,6 +51,10 @@ function App() {
 
       <button onClick={addExpense}>
         Add Expense
+      </button>
+
+      <button onClick  ={clearExpense}>
+        Clear All Expenses
       </button>
       <h3>Total: {total}Rs </h3>
     </div>
