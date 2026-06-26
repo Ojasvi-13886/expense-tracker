@@ -55,7 +55,7 @@ function App() {
             name: expensename,
             amount: Number(amount)
           };
-        }
+        }return expense;
       }
     );
 
@@ -68,7 +68,6 @@ function App() {
   return (
     <div>
       <h1>Expense Tracker</h1>
-      {editindex == null ? "Add":"update"}
       <input
       type="text"
       placeholder='Expense Name'
