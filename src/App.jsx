@@ -10,6 +10,7 @@ function App() {
   const[expensename, setexpensename] = useState("");
   const [amount, setamount] = useState("");
   const [expenses,setexpenses]=useState([]);
+  const [editindex, seteditindex] =useState(null);
 
   function addExpense(){
     const newexpense={
@@ -32,11 +33,42 @@ function App() {
     setexpenses([]);
   }
 
+  function deleteExpense(deleteindex){
+    const updatedexpenses = expenses.filter(
+      (expense, index)=> index!==deleteindex
+      );
+      setexpenses(updatedexpenses);
+  }
 
+  function editexpense(index){
+    const expensetoedit = expenses[index];
+    setexpensename(expensetoedit.name);
+    setamount(expensetoedit.amount);
+    seteditindex(index);
+  }
+
+  function updateExpense(){
+    const updatedexpenses = expenses.map(
+      (expense, index)=>{
+        if(index===editindex){
+          return{
+            name: expensename,
+            amount: Number(amount)
+          };
+        }
+      }
+    );
+
+    setexpenses(updatedexpenses);
+    seteditindex(null);
+    setexpensename("");
+    setamount("");
+  }
 
   return (
     <div>
       <h1>Expense Tracker</h1>
+      {editindex == null ? "Add":"update"}
       <input
       type="text"
       placeholder='Expense Name'
@@ -51,8 +83,8 @@ function App() {
       onChange={(e)=> setamount(e.target.value)}
       />
 
-      <button onClick={addExpense}>
-        Add Expense
+      <button onClick={editindex===null? addExpense : updateExpense}>
+        {editindex===null? "Add Expense":"Update Expense"}
       </button>
 
       <button onClick  ={clearExpense}>
@@ -63,7 +95,13 @@ function App() {
       <ul>
         {expenses.map((expense,index)=>(
           <li key={index}>
-            {expense.name} - {expense.amount}Rs
+            {expense.name} - {expense.amount} Rs
+            <button onClick={()=>editexpense(index)}> 
+              Edit 
+            </button>
+            <button onClick={()=>deleteExpense(index)}> 
+              Delete 
+            </button>
           </li>
         ))}
       </ul>
